@@ -1,12 +1,14 @@
 import os 
 os.system("cls || clear")
 
-
-soma = 0
-codigos = " "
+junta_pratos = ""
+total = 0
+desconto = 0
+preco = 0
+valor_a_pagar = 0
 
 while True:
-    print("""\tcodigo        \tprato             \tvalor    
+    print(f"""\tcodigo        \tprato             \tvalor    
             1           Picanha                 R$ 40,00
             2           Strogonoff              R$ 30,00
             3           Macarronada             R$ 25,00
@@ -14,61 +16,68 @@ while True:
             5           Cozido de Frango        R$ 18,00
             6           Bife à Parmegiana       R$ 15,00
             7           Fígado acebolado        R$ 10,00              
+            0           FECHAR O CARDÁPIO      
           """)
 
-    pedido = str(input("Informe o número do seu pedido: "))
+    pedido = int(input("Informe o número do seu pedido: "))
         
     match pedido:
+        
         case 1:
-            escolha = "Picanha "
-            codigos += 1 + " "
+            print(f"Prato escolhido: Picanha")
             preco = 40
-            print(f"Prato escolhido: {escolha}")
+            prato = "Picanha (#1)"
         case 2:
-            escolha = "Strogonoff"
-            codigos += 1 + " "
+            print(f"Prato escolhido: Strogonoff")
             preco = 30
-            print(f"Prato escolhido: {escolha}")
+            prato = "Strogonoff (#2)" 
         case 3:
-            escolha = "Macarronada"
-            codigos += 1 + " "
+            print(f"Prato escolhido: Macarronada")
             preco = 25
-            print(f"Prato escolhido: {escolha}")
+            prato = "Macarronada (#3)"
         case 4:
-            escolha = "lasanha"
-            codigos += 1 + " "
+            print(f"Prato escolhido: Lasanha")
             preco = 20
-            print(f"Prato escolhido: {escolha}")
+            prato = "Lasanha (#4)"
         case 5:
-            escolha = "cozido de frango" 
-            codigos += 1 + " "
+            print(f"Prato escolhido: Cozido de frango")
             preco = 18
-            print(f"Prato escolhido: {escolha}")
+            prato = "Cozido de frango (#5)"
         case 6:
-            escolha = "Bife à Parmegiana"
-            codigos += 1 + " "
+            print(f"Prato escolhido: Bife à parmegiana")
             preco = 15
-            print(f"Prato escolhido: {escolha}")
+            prato = "Bife à parmegiana (#6)"
         case 7:
-            escolha = "Fígado acebolado"
-            codigos += 1 +" "
+            print(f"Prato escolhido: Fígado acebolado")
             preco = 10
-            print(f"Prato escolhido: {escolha}")
+            prato = "Fígado acebolado (#7)"
         case 0:
-            codigos += pedido + " "
-            print("==PROGRAMA ENCERRADO==")
-            break
-        
+                forma_de_pagamento = int(input("""Digite a forma de pagamento:  
+                1   |   À VISTA
+                2   |   À PRAZO                                               
+                """))
+                
+                if forma_de_pagamento == 1:
+                    desconto += total * 0.10
+                    valor_a_pagar = total - desconto  
+
+                    print("Forma de pagamento escolhida: À vista")
+                    print(f"Valor do desconto: {desconto: .2f}")
+                elif forma_de_pagamento == 2:
+                    valor_a_pagar = total * 1.10
+                    acrescimo = valor_a_pagar - total
+
+                    print("Forma de pagamento escolhida: à prazo")
+                    print(f"O valor do acrescimo é: {acrescimo}")
+                    print(f"Valor a pagar: {valor_a_pagar: .2f}")
+                    break
         case _:
-            escolha = "Opção inválida."
-            preco = 0 
-        
-    
-    soma += preco 
-    continuar = (input(f"Deseja mais algum item ? \nDigite 'S' ou 'N': ")).lower()
-    codigos += escolha 
-    if continuar == "n":
+            escolha = print("Opção inválida.")
+ 
+    continuar = (input(f"Deseja mais algum item ? \nDigite 's' para continuar e/ou adicionar outro prato, ou n para finalizar a compra: ")).lower()
+    junta_pratos += prato + ", "
+    total += preco
+    print(f"Valor à pagar: {valor_a_pagar}")
+    if continuar != "s":
         break
-        
-print (f"Pratos escolhidos: {codigos}")
-print (f"")
+   
